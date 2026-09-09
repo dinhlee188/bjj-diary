@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#111111" />
+  <title>BJJ: DL Still Lost</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">BJJ TRAINING DIARY</p>
+        <h1>BJJ: <span>DL Still Lost</span></h1>
+        <p class="sub">Lost ít hơn từng buổi. Sống sót lâu hơn từng round.</p>
+      </div>
+      <div class="badge">WHITE BELT ERA</div>
+    </header>
+
+    <section id="stats" class="stats"></section>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="Tìm mount, guard, sweep, armbar..." />
+      <div id="filters" class="filters"></div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Training timeline</h2>
+        <span id="resultCount"></span>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <section class="library-wrap">
+      <div class="section-title">
+        <h2>Technique library</h2>
+        <span>Seen → Drilled → Remembered → Used live</span>
+      </div>
+      <div id="library" class="library"></div>
+    </section>
+  </main>
+
+  <template id="sessionTemplate">
+    <article class="session-card">
+      <div class="session-head">
+        <div>
+          <p class="session-kicker"></p>
+          <h3></h3>
+        </div>
+        <div class="session-meta"></div>
+      </div>
+      <div class="session-grid">
+        <div><h4>Learned</h4><div class="learned"></div></div>
+        <div><h4>What happened in roll</h4><div class="roll"></div></div>
+        <div><h4>What worked</h4><div class="worked"></div></div>
+        <div><h4>Still lost here</h4><div class="lost"></div></div>
+      </div>
+      <div class="focus"></div>
+    </article>
+  </template>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
