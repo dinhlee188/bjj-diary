@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#111111" />
-  <title>BJJ: DL Still Lost</title>
+  <title>DL Still Lost</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -15,13 +15,18 @@
     <header class="hero">
       <div>
         <p class="eyebrow">BJJ TRAINING DIARY</p>
-        <h1>BJJ: <span>DL Still Lost</span></h1>
+        <h1>DL <span>Still Lost</span></h1>
         <p class="sub">Lost ít hơn từng buổi. Sống sót lâu hơn từng round.</p>
       </div>
       <div class="badge">WHITE BELT ERA</div>
     </header>
 
     <section id="stats" class="stats"></section>
+
+    <section class="survival-card">
+      <p class="eyebrow">CURRENT SURVIVAL KIT</p>
+      <div id="survivalKit" class="survival-kit"></div>
+    </section>
 
     <section class="toolbar">
       <input id="search" type="search" placeholder="Tìm mount, guard, sweep, armbar..." />
@@ -38,7 +43,7 @@
 
     <section class="library-wrap">
       <div class="section-title">
-        <h2>Technique library</h2>
+        <div><h2>Technique library</h2><p>Click một technique để xem reference clips hoặc tự thay clip.</p></div>
         <span>Seen → Drilled → Remembered → Used live</span>
       </div>
       <div id="library" class="library"></div>
@@ -47,22 +52,30 @@
 
   <template id="sessionTemplate">
     <article class="session-card">
-      <div class="session-head">
-        <div>
-          <p class="session-kicker"></p>
-          <h3></h3>
+      <div class="session-copy">
+        <div class="session-head">
+          <div>
+            <p class="session-kicker"></p>
+            <h3></h3>
+          </div>
+          <div class="session-meta"></div>
         </div>
-        <div class="session-meta"></div>
+        <div class="tags"></div>
+        <div class="session-summary"></div>
+        <div class="focus"></div>
+        <button class="details-btn" type="button">Open full notes ↓</button>
+        <div class="session-details" hidden></div>
       </div>
-      <div class="session-grid">
-        <div><h4>Learned</h4><div class="learned"></div></div>
-        <div><h4>What happened in roll</h4><div class="roll"></div></div>
-        <div><h4>What worked</h4><div class="worked"></div></div>
-        <div><h4>Still lost here</h4><div class="lost"></div></div>
+      <div class="media-slot">
+        <div class="media-empty"><b>MEDIA</b><span>Video / photo slot</span><small>để dành cho clip tập sau này</small></div>
       </div>
-      <div class="focus"></div>
     </article>
   </template>
+
+  <dialog id="techDialog" class="tech-dialog">
+    <button class="close-dialog" type="button" aria-label="Close">×</button>
+    <div id="techDetail"></div>
+  </dialog>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
