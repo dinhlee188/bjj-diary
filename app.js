@@ -1,57 +1,29 @@
 const timeline=document.querySelector('#timeline'),stats=document.querySelector('#stats'),filters=document.querySelector('#filters'),search=document.querySelector('#search'),resultCount=document.querySelector('#resultCount'),dialog=document.querySelector('#techDialog'),techDetail=document.querySelector('#techDetail');
 let active='all';
 const categories=['all','mount','guard','sweep','armbar','takedown'];
-const survivalKit=['ELBOW IN → KNEE IN','THEY WILL ARMBAR YOU → PROTECT THE ARM','PROTECT YOUR NECK'];
+const defaultSurvivalKit=['ELBOW IN → KNEE IN','THEY WILL ARMBAR YOU → PROTECT THE ARM','PROTECT YOUR NECK'];
+let survivalKit=JSON.parse(localStorage.getItem('dl-bjj-survival')||'null')||[...defaultSurvivalKit];
 const trainingHours=9;
 const defaultRefs={
-'Mount escape':[
- {title:'Basic elbow escape — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'},
- {title:'Technical mount escape — Chewjitsu',url:'https://www.youtube.com/watch?v=WZnT87UqcDA'}
-],
-'Knee-to-elbow':[
- {title:'Basic elbow escape / knee recovery — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'}
-],
-'Closed guard':[
- {title:'Closed Guard Fundamentals — Jordan Teaches Jiujitsu',url:'https://www.youtube.com/watch?v=nAEWx5bsv0g'},
- {title:'First Thing You Must Learn in Closed Guard — Dima Murovanni',url:'https://www.youtube.com/watch?v=RI4usLeFGDs'}
-],
+'Mount escape':[{title:'Basic elbow escape — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'},{title:'Technical mount escape — Chewjitsu',url:'https://www.youtube.com/watch?v=WZnT87UqcDA'}],
+'Knee-to-elbow':[{title:'Basic elbow escape / knee recovery — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'}],
+'Closed guard':[{title:'Closed Guard Fundamentals — Jordan Teaches Jiujitsu',url:'https://www.youtube.com/watch?v=nAEWx5bsv0g'},{title:'First Thing You Must Learn in Closed Guard — Dima Murovanni',url:'https://www.youtube.com/watch?v=RI4usLeFGDs'}],
 'Single Leg X':[],
-'Spider guard':[
- {title:'Spider Guard Drill — Realize BJJ Life',url:'https://www.youtube.com/watch?v=gJg5URas5rc'}
-],
-'Straight ankle lock':[
- {title:'Straight Ankle Foot Lock — Dean Lister / BJJ Library',url:'https://www.youtube.com/watch?v=auZeB95UkA4'}
-],
-'Armbar defense':[
- {title:'Armbar Defence — Chess Club Jiu-Jitsu',url:'https://www.youtube.com/watch?v=ODecb0D7Ux4'}
-],
-'Closed-guard sweep chain':[],
-'Knee on belly':[],
-'S-mount':[
- {title:'S-Mount Mobility Drill — Chess Club Jiu-Jitsu',url:'https://www.youtube.com/watch?v=I3YDjo2n2HQ'}
-],
-'Canto choke':[
- {title:'Canto Choke — Grappler Station',url:'https://www.youtube.com/watch?v=Izo0q1F8080'},
- {title:'Canto Choke from Half Guard — Jean Jacques Machado',url:'https://www.youtube.com/watch?v=dD9XZ5gqY0w'}
-],
-'Bow & arrow choke':[
- {title:'Bow & Arrow Fundamentals — Jordan Teaches Jiujitsu',url:'https://www.youtube.com/watch?v=r8rP85rJIJ8'},
- {title:'Bow & Arrow Choke — Roy Dean',url:'https://www.youtube.com/watch?v=Q7R71XB3dig'}
-],
-'Seat belt':[
- {title:'Seat Belt to Back — Ritchie Yip',url:'https://www.youtube.com/watch?v=eJtdrmn-Z4k'}
-],
-'Kimura':[],
-'Americana':[]
-};
+'Spider guard':[{title:'Spider Guard Drill — Realize BJJ Life',url:'https://www.youtube.com/watch?v=gJg5URas5rc'}],
+'Straight ankle lock':[{title:'Straight Ankle Foot Lock — Dean Lister / BJJ Library',url:'https://www.youtube.com/watch?v=auZeB95UkA4'}],
+'Armbar defense':[{title:'Armbar Defence — Chess Club Jiu-Jitsu',url:'https://www.youtube.com/watch?v=ODecb0D7Ux4'}],
+'Closed-guard sweep chain':[], 'Knee on belly':[],
+'S-mount':[{title:'S-Mount Mobility Drill — Chess Club Jiu-Jitsu',url:'https://www.youtube.com/watch?v=I3YDjo2n2HQ'}],
+'Canto choke':[{title:'Canto Choke — Grappler Station',url:'https://www.youtube.com/watch?v=Izo0q1F8080'},{title:'Canto Choke from Half Guard — Jean Jacques Machado',url:'https://www.youtube.com/watch?v=dD9XZ5gqY0w'}],
+'Bow & arrow choke':[{title:'Bow & Arrow Fundamentals — Jordan Teaches Jiujitsu',url:'https://www.youtube.com/watch?v=r8rP85rJIJ8'},{title:'Bow & Arrow Choke — Roy Dean',url:'https://www.youtube.com/watch?v=Q7R71XB3dig'}],
+'Seat belt':[{title:'Seat Belt to Back — Ritchie Yip',url:'https://www.youtube.com/watch?v=eJtdrmn-Z4k'}], 'Kimura':[], 'Americana':[]};
 const savedRefs=JSON.parse(localStorage.getItem('dl-bjj-refs')||'{}');
-const refsFor=name=>savedRefs[name]||defaultRefs[name]||[];
-const saveRefs=()=>localStorage.setItem('dl-bjj-refs',JSON.stringify(savedRefs));
-const list=x=>`<ul>${x.map(v=>`<li>${v}</li>`).join('')}</ul>`;
+const refsFor=name=>savedRefs[name]||defaultRefs[name]||[];const saveRefs=()=>localStorage.setItem('dl-bjj-refs',JSON.stringify(savedRefs));const list=x=>`<ul>${x.map(v=>`<li>${v}</li>`).join('')}</ul>`;
 function renderStats(){stats.innerHTML=[['Sessions',sessions.length],['Training hours',trainingHours],['Techniques seen',techniques.length],['Current KPI','Survive longer']].map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('')}
 function renderSurvival(){document.querySelector('#survivalKit').innerHTML=survivalKit.map(x=>`<span class="survival-pill">${x}</span>`).join('')}
 function renderFilters(){filters.innerHTML=categories.map(c=>`<button class="filter ${c===active?'active':''}" data-filter="${c}">${c}</button>`).join('');filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{active=b.dataset.filter;renderFilters();renderSessions()})}
 function renderSessions(){const q=search.value.trim().toLowerCase();const rows=sessions.slice().reverse().filter(s=>{const hay=JSON.stringify(s).toLowerCase();return(active==='all'||hay.includes(active))&&(!q||hay.includes(q))});resultCount.textContent=`${rows.length} session${rows.length===1?'':'s'}`;timeline.innerHTML='';if(!rows.length){timeline.innerHTML='<div class="empty">Không thấy gì. Có khi technique này mày chưa học thật =))))</div>';return}rows.forEach(s=>{const t=document.querySelector('#sessionTemplate').content.cloneNode(true);t.querySelector('.session-kicker').textContent=`SESSION ${String(s.n).padStart(2,'0')} · ${s.date}`;t.querySelector('h3').textContent=s.title;t.querySelector('.session-meta').innerHTML=`${s.intensity}`;t.querySelector('.tags').innerHTML=s.tags.map(x=>`<span class="tag">${x}</span>`).join('');const summary=[['LEARNED',s.learned[0]],['ROLL',s.roll[0]],['WORKED',s.worked[0]],['STILL LOST',s.lost[0]]];t.querySelector('.session-summary').innerHTML=summary.map(([k,v])=>`<div class="summary-chip"><b>${k}</b><span>${v}</span></div>`).join('');t.querySelector('.focus').append(document.createTextNode(s.focus));t.querySelector('.session-details').innerHTML=`<div class="detail-grid"><div><h4>LEARNED</h4>${list(s.learned)}</div><div><h4>WHAT HAPPENED IN ROLL</h4>${list(s.roll)}</div><div><h4>WHAT WORKED</h4>${list(s.worked)}</div><div><h4>STILL LOST HERE</h4>${list(s.lost)}</div></div>`;const btn=t.querySelector('.details-btn'),details=t.querySelector('.session-details');btn.onclick=()=>{details.hidden=!details.hidden;btn.textContent=details.hidden?'Open full notes ↓':'Close full notes ↑'};timeline.append(t)})}
 function openTechnique(name,lvl,label){const refs=refsFor(name);techDetail.innerHTML=`<p class="eyebrow">TECHNIQUE</p><h2>${name}</h2><div class="level"><i style="width:${lvl*25}%"></i></div><p><b>${label}</b></p><div class="ref-list">${[0,1,2].map(i=>{const r=refs[i];return `<div class="ref-row"><div>${r?`<a href="${r.url}" target="_blank" rel="noopener">${r.title||'Reference clip '+(i+1)}</a>`:`<span>Reference clip ${i+1} · chưa set</span>`}</div><button class="replace-ref" data-i="${i}">${r?'Replace':'Add clip'}</button></div>`}).join('')}</div><p class="ref-note">Reference mặc định là clip tao đã check đúng technique. Clip mày tự thay được lưu trên browser này; gửi tao clip ngon hơn thì tao update luôn bản chính.</p>`;techDetail.querySelectorAll('.replace-ref').forEach(btn=>btn.onclick=()=>{const i=+btn.dataset.i;const url=prompt('Paste video URL');if(!url)return;const title=prompt('Tên clip (optional)')||`My reference ${i+1}`;const arr=[...refsFor(name)];arr[i]={title,url};savedRefs[name]=arr;saveRefs();openTechnique(name,lvl,label)});if(!dialog.open)dialog.showModal()}
 function renderLibrary(){document.querySelector('#library').innerHTML=techniques.map(([name,lvl,label])=>`<div class="tech" data-name="${name}"><h3>${name}</h3><div class="level"><i style="width:${lvl*25}%"></i></div><small>${label} · ${refsFor(name).filter(Boolean).length}/3 refs</small></div>`).join('');document.querySelectorAll('.tech').forEach(el=>{const row=techniques.find(x=>x[0]===el.dataset.name);el.onclick=()=>openTechnique(...row)})}
+const survivalDialog=document.querySelector('#survivalDialog'),survivalEditor=document.querySelector('#survivalEditor');function drawSurvivalEditor(){survivalEditor.innerHTML=survivalKit.map((x,i)=>`<div class="survival-edit-row"><input value="${x.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" data-i="${i}"><button class="remove-survival" data-i="${i}" type="button">×</button></div>`).join('');survivalEditor.querySelectorAll('.remove-survival').forEach(b=>b.onclick=()=>{survivalKit.splice(+b.dataset.i,1);drawSurvivalEditor()})}document.querySelector('#editSurvival').onclick=()=>{drawSurvivalEditor();survivalDialog.showModal()};document.querySelector('#closeSurvival').onclick=()=>survivalDialog.close();document.querySelector('#addSurvival').onclick=()=>{survivalKit.push('');drawSurvivalEditor();survivalEditor.querySelector('input:last-of-type')?.focus()};document.querySelector('#saveSurvival').onclick=()=>{survivalKit=[...survivalEditor.querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);localStorage.setItem('dl-bjj-survival',JSON.stringify(survivalKit));renderSurvival();survivalDialog.close()};
 document.querySelector('.close-dialog').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});search.addEventListener('input',renderSessions);renderStats();renderSurvival();renderFilters();renderSessions();renderLibrary();
