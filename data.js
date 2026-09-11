@@ -38,9 +38,17 @@ const sessions = [
     worked:['Actually saw an escape route from mount and used it live','Responded to leg connection with leg connection instead of random pushing','Remembered more positions while they were happening'],
     lost:['Exact name/variation of the closed-guard sweep','Still processing the big decision tree after reaching top'],
     focus:'Remember the core chain: C-cup → cross arm → turn → under leg → SWEEP. Options can come later.'
+  },
+  {
+    n:6,date:'11/09/2026',title:'No-gi is slippery bullshit',minutes:21,intensity:'No-gi · positional + live roll',tags:['no-gi','leg lock','straight ankle lock','toe hold','side control','kimura','americana','seat belt','armbar'],
+    learned:['Straight ankle / Achilles lock mechanics: trap the instep in the armpit, forearm/wrist blade behind the ankle near the Achilles, then extend the body','Leg-lock rotation variations: rotate opponent’s leg/knee outward and counter-rotate the body; repeated after switching the trapped leg to the other armpit (exact entanglement/variation TBD)','Transition to toe hold','Brad showed an attack from side control using Kimura or Americana mechanics — exact variation TBD'],
+    roll:['Side-control positional sparring: ~8 min defending with Teddy; defender only defended and Teddy kept it light — no submission','Side-control positional sparring: ~8 min attacking Brad; initially blank, then practiced the Kimura/Americana attack he showed several times','~5 min standing roll with Yoshi: rolled him over the head once (technique TBD), later saw the back and got a seat belt but lost control; eventually got armbarred','Final roll with Doley: still couldn’t secure the takedown; got armbarred after ~1:30'],
+    worked:['Defended side control for the full round without being submitted, with light resistance','Recognized Yoshi’s exposed back during live roll and immediately took a seat belt','Repeated the side-control arm attack a few times after Brad showed it'],
+    lost:['No-gi grips/control: everything feels slippery and harder to hold','Exact names/details of the rotational leg-lock variations','Exact Kimura/Americana setup Brad showed','Still struggling to convert standing exchanges into a takedown against Doley'],
+    focus:'No-gi: control before submission. If the back appears → seat belt and keep the connection.'
   }
 ];
 
 const techniques = [
-  ['Mount escape',4,'Used live'],['Knee-to-elbow',3,'Remembered'],['Closed guard',3,'Remembered'],['Single Leg X',2,'Drilled'],['Spider guard',2,'Drilled'],['Straight ankle lock',2,'Drilled'],['Armbar defense',2,'Drilled'],['Closed-guard sweep chain',2,'Drilled'],['Knee on belly',1,'Seen'],['S-mount',2,'Drilled'],['Canto choke',1,'Seen'],['Bow & arrow choke',2,'Drilled'],['Seat belt',2,'Drilled'],['Kimura',1,'Seen'],['Americana',1,'Seen']
+  ['Mount escape',4,'Used live'],['Knee-to-elbow',3,'Remembered'],['Closed guard',3,'Remembered'],['Single Leg X',2,'Drilled'],['Spider guard',2,'Drilled'],['Straight ankle lock',3,'Remembered'],['Toe hold',2,'Drilled'],['Armbar defense',2,'Drilled'],['Closed-guard sweep chain',2,'Drilled'],['Knee on belly',1,'Seen'],['S-mount',2,'Drilled'],['Canto choke',1,'Seen'],['Bow & arrow choke',2,'Drilled'],['Seat belt',4,'Used live'],['Kimura',2,'Drilled'],['Americana',2,'Drilled']
 ];
