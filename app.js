@@ -13,7 +13,7 @@ function writeSaved(key,value){
 }
 const defaultSurvivalKit=['ELBOW IN → KNEE IN','THEY WILL ARMBAR YOU → PROTECT THE ARM','PROTECT YOUR NECK'];
 let survivalKit=readSaved('dl-bjj-survival',[...defaultSurvivalKit]);
-const trainingHours=9;
+const trainingHours=11;
 const defaultRefs={
 'Mount escape':[{title:'Basic elbow escape — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'},{title:'Technical mount escape — Chewjitsu',url:'https://www.youtube.com/watch?v=WZnT87UqcDA'}],
 'Knee-to-elbow':[{title:'Basic elbow escape / knee recovery — Mads H. BJJ',url:'https://www.youtube.com/watch?v=-P4clB_G1Z8'}],
@@ -26,7 +26,7 @@ const defaultRefs={
 'S-mount':[{title:'S-Mount Mobility Drill — Chess Club Jiu-Jitsu',url:'https://www.youtube.com/watch?v=I3YDjo2n2HQ'}],
 'Canto choke':[{title:'Canto Choke — Grappler Station',url:'https://www.youtube.com/watch?v=Izo0q1F8080'},{title:'Canto Choke from Half Guard — Jean Jacques Machado',url:'https://www.youtube.com/watch?v=dD9XZ5gqY0w'}],
 'Bow & arrow choke':[{title:'Bow & Arrow Fundamentals — Jordan Teaches Jiujitsu',url:'https://www.youtube.com/watch?v=r8rP85rJIJ8'},{title:'Bow & Arrow Choke — Roy Dean',url:'https://www.youtube.com/watch?v=Q7R71XB3dig'}],
-'Seat belt':[{title:'Seat Belt to Back — Ritchie Yip',url:'https://www.youtube.com/watch?v=eJtdrmn-Z4k'}], 'Kimura':[], 'Americana':[]};
+'Seat belt':[{title:'Seat Belt to Back — Ritchie Yip',url:'https://www.youtube.com/watch?v=eJtdrmn-Z4k'}], 'Kimura':[], 'Americana':[], 'Toe hold':[]};
 const savedRefs=readSaved('dl-bjj-refs',{});
 const refsFor=name=>savedRefs[name]||defaultRefs[name]||[];const saveRefs=()=>writeSaved('dl-bjj-refs',savedRefs);const list=x=>`<ul>${x.map(v=>`<li>${v}</li>`).join('')}</ul>`;
 function renderStats(){stats.innerHTML=[['Sessions',sessions.length],['Training hours',trainingHours],['Techniques seen',techniques.length],['Current KPI','Survive longer']].map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('')}
